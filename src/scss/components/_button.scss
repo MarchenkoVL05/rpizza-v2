@@ -93,6 +93,9 @@
     background-color: rgba(255, 255, 255, 0.25);
     margin-left: 14px;
     margin-right: 14px;
+    @media (max-width: 730px) {
+      display: none;
+    }
   }
 
   &--add {
@@ -143,6 +146,12 @@
     span {
       font-weight: 600;
       font-size: 16px;
+    }
+
+    span:first-child {
+      @media (max-width: 730px) {
+        display: none;
+      }
     }
   }
 }
