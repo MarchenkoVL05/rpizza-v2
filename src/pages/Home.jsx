@@ -9,8 +9,19 @@ function Home() {
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
+  const [categoryIndex, setCategoryIndex] = React.useState(0);
+  const [optionActive, setOptionActive] = React.useState({
+    name: 'Популярности',
+    sortProperty: 'rating',
+  });
+
   React.useEffect(() => {
-    fetch('https://62bdba87bac21839b609fc45.mockapi.io/pizzas')
+    setIsLoading(true);
+    fetch(
+      `https://62bdba87bac21839b609fc45.mockapi.io/pizzas?${
+        categoryIndex > 0 ? `category=${categoryIndex}` : ''
+      }&sortBy=${optionActive.sortProperty}&order=desc`
+    )
       .then((res) => {
         return res.json();
       })
@@ -18,17 +29,20 @@ function Home() {
         setPizzas(items);
         setIsLoading(false);
       });
-      window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0);
+  }, [categoryIndex, optionActive]);
 
   return (
     <div>
-      <div className="content__top">
-        <Categories />
-        <Sort />
+      <div className='content__top'>
+        <Categories
+          value={categoryIndex}
+          onClickCategory={(id) => setCategoryIndex(id)}
+        />
+        <Sort value={optionActive} onChangeSort={(id) => setOptionActive(id)} />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
+      <h2 className='content__title'>Все пиццы</h2>
+      <div className='content__items'>
         {isLoading
           ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
           : pizzas.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
