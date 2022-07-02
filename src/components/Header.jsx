@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom';
 import Cart from '../pages/Cart';
 import Search from './Search';
 
+import { SearchContext } from '../App.js';
+
 import pizzasLogo from '../assets/images/pizza-logo.svg';
 
-export default function Header({ searchValue, setSearchValue }) {
+export default function Header() {
+  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+
   return (
     <div className='header'>
       <div className='container'>
