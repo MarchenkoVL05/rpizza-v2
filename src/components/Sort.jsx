@@ -1,16 +1,21 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
-export default function Sort({ value, onChangeSort }) {
+import { setOptionActive } from '../redux/slices/categorySlice';
+
+const list = [
+  { name: 'Популярности', sortProperty: 'rating' },
+  { name: 'Цене', sortProperty: 'price' },
+  { name: 'Алфавиту', sortProperty: 'title' },
+];
+
+export default function Sort({ optionActive }) {
   const [open, setOpen] = React.useState(false);
 
-  const list = [
-    { name: 'Популярности', sortProperty: 'rating' },
-    { name: 'Цене', sortProperty: 'price' },
-    { name: 'Алфавиту', sortProperty: 'title' },
-  ];
+  const dispatch = useDispatch();
 
   const chooseSortOption = (index) => {
-    onChangeSort(index);
+    dispatch(setOptionActive(index));
     setOpen(false);
   };
 
@@ -30,7 +35,7 @@ export default function Sort({ value, onChangeSort }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{value.name}</span>
+        <span onClick={() => setOpen(!open)}>{optionActive.name}</span>
       </div>
       {open && (
         <div className='sort__popup'>
@@ -39,7 +44,9 @@ export default function Sort({ value, onChangeSort }) {
               <li
                 key={index}
                 className={
-                  value.sortProperty == option.sortProperty ? 'active' : ''
+                  optionActive.sortProperty == option.sortProperty
+                    ? 'active'
+                    : ''
                 }
                 onClick={() => chooseSortOption(option)}
               >

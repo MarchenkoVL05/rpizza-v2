@@ -16,17 +16,12 @@ function Home() {
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const [optionActive, setOptionActive] = React.useState({
-    name: 'Популярности',
-    sortProperty: 'rating',
-  });
-
   const categoryIndex = useSelector((state) => state.category.categoryId);
+  const optionActive = useSelector((state) => state.category.sort);
   const dispatch = useDispatch();
 
   const onClickCategory = (id) => {
     dispatch(setCategoryIndex(id));
-    console.log(categoryIndex);
   };
 
   React.useEffect(() => {
@@ -53,7 +48,7 @@ function Home() {
           value={categoryIndex}
           onClickCategory={(id) => onClickCategory(id)}
         />
-        <Sort value={optionActive} onChangeSort={(id) => setOptionActive(id)} />
+        <Sort optionActive={optionActive} />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
