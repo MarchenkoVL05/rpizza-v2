@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 
 import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
@@ -26,16 +27,14 @@ function Home() {
 
   React.useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `https://62bdba87bac21839b609fc45.mockapi.io/pizzas?${
-        categoryIndex > 0 ? `category=${categoryIndex}` : ''
-      }&sortBy=${optionActive.sortProperty}&order=desc`
-    )
+    axios
+      .get(
+        `https://62bdba87bac21839b609fc45.mockapi.io/pizzas?${
+          categoryIndex > 0 ? `category=${categoryIndex}` : ''
+        }&sortBy=${optionActive.sortProperty}&order=desc`
+      )
       .then((res) => {
-        return res.json();
-      })
-      .then((items) => {
-        setPizzas(items);
+        setPizzas(res.data);
         setIsLoading(false);
       });
     window.scrollTo(0, 0);

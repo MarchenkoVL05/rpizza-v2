@@ -14,8 +14,8 @@ export default function Sort({ optionActive }) {
 
   const dispatch = useDispatch();
 
-  const chooseSortOption = (index) => {
-    dispatch(setOptionActive(index));
+  const chooseSortOption = (obj) => {
+    dispatch(setOptionActive(obj));
     setOpen(false);
   };
 
