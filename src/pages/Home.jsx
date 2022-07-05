@@ -1,9 +1,12 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
+
+import { setCategoryIndex } from '../redux/slices/categorySlice';
 
 import { SearchContext } from '../App.js';
 
@@ -13,11 +16,18 @@ function Home() {
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const [categoryIndex, setCategoryIndex] = React.useState(0);
   const [optionActive, setOptionActive] = React.useState({
     name: 'Популярности',
     sortProperty: 'rating',
   });
+
+  const categoryIndex = useSelector((state) => state.category.categoryId);
+  const dispatch = useDispatch();
+
+  const onClickCategory = (id) => {
+    dispatch(setCategoryIndex(id));
+    console.log(categoryIndex);
+  };
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -41,7 +51,7 @@ function Home() {
       <div className='content__top'>
         <Categories
           value={categoryIndex}
-          onClickCategory={(id) => setCategoryIndex(id)}
+          onClickCategory={(id) => onClickCategory(id)}
         />
         <Sort value={optionActive} onChangeSort={(id) => setOptionActive(id)} />
       </div>
