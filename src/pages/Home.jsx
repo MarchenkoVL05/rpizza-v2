@@ -1,15 +1,19 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
+import QueryString from 'qs';
+import { useNavigate } from 'react-router-dom';
 
 import Categories from '../components/Categories';
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
-import { setCategoryIndex } from '../redux/slices/categorySlice';
+import { setCategoryIndex, setParams } from '../redux/slices/categorySlice';
 
 import { SearchContext } from '../App.js';
+
+import { list } from '../components/Sort';
 
 function Home() {
   const { searchValue } = React.useContext(SearchContext);
@@ -20,12 +24,15 @@ function Home() {
   const categoryIndex = useSelector((state) => state.category.categoryId);
   const optionActive = useSelector((state) => state.category.sort);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isParams = React.useRef(false);
+  const isMounted = React.useRef(false);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryIndex(id));
   };
 
-  React.useEffect(() => {
+  const fetchPizzas = () => {
     setIsLoading(true);
     axios
       .get(
@@ -38,7 +45,39 @@ function Home() {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
+  };
+
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = QueryString.parse(window.location.search.slice(1));
+      const sorted = list.find(
+        (obj) => obj.sortProperty == params.sortProperty
+      );
+      dispatch(setParams({ ...params, sorted }));
+      isParams.current = true;
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (!isParams.current) {
+      fetchPizzas();
+    }
+
+    isParams.current = false;
   }, [categoryIndex, optionActive]);
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const qs = QueryString.stringify({
+        sortProperty: optionActive.sortProperty,
+        categoryIndex: categoryIndex,
+      });
+
+      navigate(`?${qs}`);
+    }
+
+    isMounted.current = true;
+  }, [optionActive, categoryIndex]);
 
   return (
     <div>

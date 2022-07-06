@@ -19,9 +19,15 @@ export const categorySlice = createSlice({
     setOptionActive: (state, action) => {
       state.sort = action.payload;
     },
+
+    setParams: (state, action) => {
+      state.categoryId = action.payload.categoryIndex;
+      state.sort = action.payload.sorted;
+    },
   },
 });
 
-export const { setCategoryIndex, setOptionActive } = categorySlice.actions;
+export const { setCategoryIndex, setOptionActive, setParams } =
+  categorySlice.actions;
 
 export default categorySlice.reducer;

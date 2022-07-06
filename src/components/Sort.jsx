@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { setOptionActive } from '../redux/slices/categorySlice';
 
-const list = [
+export const list = [
   { name: 'Популярности', sortProperty: 'rating' },
   { name: 'Цене', sortProperty: 'price' },
   { name: 'Алфавиту', sortProperty: 'title' },
