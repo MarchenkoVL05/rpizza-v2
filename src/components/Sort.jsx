@@ -24,7 +24,6 @@ export default function Sort({ optionActive }) {
     const handleClickOutside = (event) => {
       if (!event.path.includes(sortNode.current)) {
         setOpen(false);
-        console.log('open func');
       }
     };
     document.body.addEventListener('click', handleClickOutside);
