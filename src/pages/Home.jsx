@@ -32,18 +32,15 @@ function Home() {
     dispatch(setCategoryIndex(id));
   };
 
-  const fetchPizzas = () => {
+  const fetchPizzas = async () => {
     setIsLoading(true);
-    axios
-      .get(
-        `https://62bdba87bac21839b609fc45.mockapi.io/pizzas?${
-          categoryIndex > 0 ? `category=${categoryIndex}` : ''
-        }&sortBy=${optionActive.sortProperty}&order=desc`
-      )
-      .then((res) => {
-        setPizzas(res.data);
-        setIsLoading(false);
-      });
+    let res = await axios.get(
+      `https://62bdba87bac21839b609fc45.mockapi.io/pizzas?${
+        categoryIndex > 0 ? `category=${categoryIndex}` : ''
+      }&sortBy=${optionActive.sortProperty}&order=desc`
+    );
+    setPizzas(res.data);
+    setIsLoading(false);
     window.scrollTo(0, 0);
   };
 
