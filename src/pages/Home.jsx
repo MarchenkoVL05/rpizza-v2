@@ -10,6 +10,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
 import { setCategoryIndex, setParams } from '../redux/slices/categorySlice';
+import { setPizzas } from '../redux/slices/pizzaSlice';
 
 import { SearchContext } from '../App.js';
 
@@ -18,11 +19,11 @@ import { list } from '../components/Sort';
 function Home() {
   const { searchValue } = React.useContext(SearchContext);
 
-  const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   const categoryIndex = useSelector((state) => state.category.categoryId);
   const optionActive = useSelector((state) => state.category.sort);
+  const pizzas = useSelector((state) => state.pizzas.items);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isParams = React.useRef(false);
@@ -34,13 +35,18 @@ function Home() {
 
   const fetchPizzas = async () => {
     setIsLoading(true);
-    let res = await axios.get(
-      `https://62bdba87bac21839b609fc45.mockapi.io/pizzas?${
-        categoryIndex > 0 ? `category=${categoryIndex}` : ''
-      }&sortBy=${optionActive.sortProperty}&order=desc`
-    );
-    setPizzas(res.data);
-    setIsLoading(false);
+    try {
+      let { data } = await axios.get(
+        `https://62bdba87bac21839b609fc45.mockapi.io/pizzas?${
+          categoryIndex > 0 ? `category=${categoryIndex}` : ''
+        }&sortBy=${optionActive.sortProperty}&order=desc`
+      );
+      dispatch(setPizzas(data));
+    } catch (error) {
+      alert('Не удалось загрузить пиццы :( Ошибка сервера');
+    } finally {
+      setIsLoading(false);
+    }
     window.scrollTo(0, 0);
   };
 
