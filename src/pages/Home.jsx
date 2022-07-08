@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import QueryString from 'qs';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +9,7 @@ import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
 import { setCategoryIndex, setParams } from '../redux/slices/categorySlice';
-import { setPizzas } from '../redux/slices/pizzaSlice';
+import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 import { SearchContext } from '../App.js';
 
@@ -19,11 +18,10 @@ import { list } from '../components/Sort';
 function Home() {
   const { searchValue } = React.useContext(SearchContext);
 
-  const [isLoading, setIsLoading] = React.useState(true);
-
   const categoryIndex = useSelector((state) => state.category.categoryId);
   const optionActive = useSelector((state) => state.category.sort);
   const pizzas = useSelector((state) => state.pizzas.items);
+  const status = useSelector((state) => state.pizzas.status);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isParams = React.useRef(false);
@@ -33,20 +31,8 @@ function Home() {
     dispatch(setCategoryIndex(id));
   };
 
-  const fetchPizzas = async () => {
-    setIsLoading(true);
-    try {
-      let { data } = await axios.get(
-        `https://62bdba87bac21839b609fc45.mockapi.io/pizzas?${
-          categoryIndex > 0 ? `category=${categoryIndex}` : ''
-        }&sortBy=${optionActive.sortProperty}&order=desc`
-      );
-      dispatch(setPizzas(data));
-    } catch (error) {
-      alert('Не удалось загрузить пиццы :( Ошибка сервера');
-    } finally {
-      setIsLoading(false);
-    }
+  const getPizzas = async () => {
+    dispatch(fetchPizzas({ categoryIndex, optionActive }));
     window.scrollTo(0, 0);
   };
 
@@ -63,7 +49,7 @@ function Home() {
 
   React.useEffect(() => {
     if (!isParams.current) {
-      fetchPizzas();
+      getPizzas();
     }
 
     isParams.current = false;
@@ -93,7 +79,7 @@ function Home() {
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>
-        {isLoading
+        {status === 'loading'
           ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
           : pizzas
               .filter((obj) =>
