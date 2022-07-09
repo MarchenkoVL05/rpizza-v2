@@ -11,17 +11,14 @@ import Sort from '../components/Sort';
 import { setCategoryIndex, setParams } from '../redux/slices/categorySlice';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
-import { SearchContext } from '../App.js';
-
 import { list } from '../components/Sort';
 
 function Home() {
-  const { searchValue } = React.useContext(SearchContext);
-
   const categoryIndex = useSelector((state) => state.category.categoryId);
   const optionActive = useSelector((state) => state.category.sort);
   const pizzas = useSelector((state) => state.pizzas.items);
   const status = useSelector((state) => state.pizzas.status);
+  const searchValue = useSelector((state) => state.category.searchValue);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isParams = React.useRef(false);

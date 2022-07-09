@@ -1,15 +1,21 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setSearchValue } from '../../redux/slices/categorySlice';
 
 import styles from './search.module.scss';
 
 import searchIcon from '../../assets/icons/searchIcon.svg';
 import closeIcon from '../../assets/icons/closing.svg';
 
-export default function Search({ searchValue, setSearchValue }) {
+export default function Search() {
   const inputRef = React.useRef();
+  const dispatch = useDispatch();
+
+  const searchValue = useSelector((state) => state.category.searchValue);
 
   const clearSearchInput = () => {
-    setSearchValue('');
+    dispatch(setSearchValue(''));
     inputRef.current.focus();
   };
 
@@ -18,7 +24,7 @@ export default function Search({ searchValue, setSearchValue }) {
       <img className={styles.icon} src={searchIcon} alt='searching' />
       <input
         value={searchValue}
-        onChange={(event) => setSearchValue(event.target.value)}
+        onChange={(event) => dispatch(setSearchValue(event.target.value))}
         ref={inputRef}
         className={styles.input}
         placeholder='Поиск пицц...'
