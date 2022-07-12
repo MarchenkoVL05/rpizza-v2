@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import jdun from '../assets/images/jdun.png';
 
-export default function PizzaDetails() {
+const PizzaDetails: React.FC = () => {
   const params = useParams();
   // console.log(params);
   return (
@@ -20,4 +20,6 @@ export default function PizzaDetails() {
       </h1>
     </>
   );
-}
+};
+
+export default PizzaDetails;
