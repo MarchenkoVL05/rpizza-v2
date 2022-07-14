@@ -13,22 +13,23 @@ import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 import { list } from '../components/Sort';
 
-function Home() {
-  const categoryIndex = useSelector((state) => state.category.categoryId);
-  const optionActive = useSelector((state) => state.category.sort);
-  const pizzas = useSelector((state) => state.pizzas.items);
-  const status = useSelector((state) => state.pizzas.status);
-  const searchValue = useSelector((state) => state.category.searchValue);
+const Home: React.FC = () => {
+  const categoryIndex = useSelector((state: any) => state.category.categoryId);
+  const optionActive = useSelector((state: any) => state.category.sort);
+  const pizzas = useSelector((state: any) => state.pizzas.items);
+  const status = useSelector((state: any) => state.pizzas.status);
+  const searchValue = useSelector((state: any) => state.category.searchValue);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isParams = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryIndex(id));
   };
 
   const getPizzas = async () => {
+    // @ts-ignore
     dispatch(fetchPizzas({ categoryIndex, optionActive }));
     window.scrollTo(0, 0);
   };
@@ -70,7 +71,7 @@ function Home() {
       <div className='content__top'>
         <Categories
           value={categoryIndex}
-          onClickCategory={(id) => onClickCategory(id)}
+          onClickCategory={(id: number) => onClickCategory(id)}
         />
         <Sort optionActive={optionActive} />
       </div>
@@ -79,13 +80,13 @@ function Home() {
         {status === 'loading'
           ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
           : pizzas
-              .filter((obj) =>
+              .filter((obj: any) =>
                 obj.title.toLowerCase().includes(searchValue.toLowerCase())
               )
-              .map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
+              .map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)}
       </div>
     </div>
   );
-}
+};
 
 export default Home;

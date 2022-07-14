@@ -9,7 +9,7 @@ import NotFound from './pages/NotFound';
 
 import './scss/app.scss';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className='wrapper'>
       <Header />
@@ -25,6 +25,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

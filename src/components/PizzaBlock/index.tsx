@@ -7,21 +7,30 @@ import PizzaDetails from '../PizzaDetails';
 
 const typesName = ['тонкое', 'традиционное'];
 
-export default function PizzaBlock({
+type pizzaBlockProps = {
+  id: number;
+  title: string;
+  price: number;
+  imageUrl: string;
+  types: number[];
+  sizes: number[];
+};
+
+const PizzaBlock: React.FC<pizzaBlockProps> = ({
   id,
   title,
   price,
   imageUrl,
   types,
   sizes,
-}) {
+}) => {
   const [sizeIndex, setSizeIndex] = React.useState(0);
   const [typeIndex, setTypeIndex] = React.useState(0);
 
   const dispatch = useDispatch();
 
-  const cartItem = useSelector((state) =>
-    state.cart.items.find((obj) => obj.id == id)
+  const cartItem = useSelector((state: any) =>
+    state.cart.items.find((obj: any) => obj.id == id)
   );
 
   const addedCount = cartItem ? cartItem.count : 0;
@@ -42,7 +51,7 @@ export default function PizzaBlock({
   return (
     <div className='pizza-block-wrapper'>
       <div className='pizza-block'>
-        <Link to={'details:' + id} element={<PizzaDetails />}>
+        <Link to={'details:' + id}>
           <img className='pizza-block__image' src={imageUrl} alt='Pizza' />
           <h4 className='pizza-block__title'>{title}</h4>
         </Link>
@@ -95,4 +104,6 @@ export default function PizzaBlock({
       </div>
     </div>
   );
-}
+};
+
+export default PizzaBlock;

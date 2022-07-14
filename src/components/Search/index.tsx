@@ -8,15 +8,15 @@ import styles from './search.module.scss';
 import searchIcon from '../../assets/icons/searchIcon.svg';
 import closeIcon from '../../assets/icons/closing.svg';
 
-export default function Search() {
-  const inputRef = React.useRef();
+const Search = () => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
-  const searchValue = useSelector((state) => state.category.searchValue);
+  const searchValue = useSelector((state: any) => state.category.searchValue);
 
   const clearSearchInput = () => {
     dispatch(setSearchValue(''));
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   return (
@@ -41,4 +41,6 @@ export default function Search() {
       )}
     </div>
   );
-}
+};
+
+export default Search;

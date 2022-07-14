@@ -3,25 +3,37 @@ import { useDispatch } from 'react-redux';
 
 import { setOptionActive } from '../redux/slices/categorySlice';
 
-export const list = [
+type listType = {
+  name: string;
+  sortProperty: string;
+};
+
+type sortPrors = {
+  optionActive: {
+    name: string;
+    sortProperty: string;
+  };
+};
+
+export const list: listType[] = [
   { name: 'Популярности', sortProperty: 'rating' },
   { name: 'Цене', sortProperty: 'price' },
   { name: 'Алфавиту', sortProperty: 'title' },
 ];
 
-export default function Sort({ optionActive }) {
-  const [open, setOpen] = React.useState(false);
-  const sortNode = React.useRef();
+const Sort: React.FC<sortPrors> = ({ optionActive }) => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const sortNode = React.useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch();
 
-  const chooseSortOption = (obj) => {
+  const chooseSortOption = (obj: listType) => {
     dispatch(setOptionActive(obj));
     setOpen(false);
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (!event.path.includes(sortNode.current)) {
         setOpen(false);
       }
@@ -70,4 +82,6 @@ export default function Sort({ optionActive }) {
       )}
     </div>
   );
-}
+};
+
+export default Sort;

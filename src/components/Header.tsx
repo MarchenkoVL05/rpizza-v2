@@ -7,10 +7,13 @@ import { useSelector } from 'react-redux';
 
 import pizzasLogo from '../assets/images/pizza-logo.svg';
 
-export default function Header() {
-  const { items, totalPrice } = useSelector((state) => state.cart);
+const Header: React.FC = () => {
+  const { items, totalPrice } = useSelector((state: any) => state.cart);
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce(
+    (sum: number, item: any) => sum + item.count,
+    0
+  );
 
   const location = useLocation();
 
@@ -29,7 +32,7 @@ export default function Header() {
         {location.pathname !== '/cart' && <Search />}
         <div className='header__cart'>
           {location.pathname !== '/cart' && (
-            <Link to='/cart' element={<Cart />} className='button button--cart'>
+            <Link to='/cart' className='button button--cart'>
               <span>{totalPrice} ₽</span>
               <div className='button__delimiter'></div>
               <svg
@@ -68,4 +71,6 @@ export default function Header() {
       </div>
     </div>
   );
-}
+};
+
+export default Header;
