@@ -66,6 +66,17 @@ const Home: React.FC = () => {
     isMounted.current = true;
   }, [optionActive, categoryIndex]);
 
+  type pizzaItem = {
+    id: number;
+    title: string;
+    price: number;
+    imageUrl: string;
+    types: number[];
+    sizes: number[];
+    category: number;
+    rating: number;
+  };
+
   return (
     <div>
       <div className='content__top'>
@@ -80,10 +91,10 @@ const Home: React.FC = () => {
         {status === 'loading'
           ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
           : pizzas
-              .filter((obj: any) =>
+              .filter((obj: pizzaItem) =>
                 obj.title.toLowerCase().includes(searchValue.toLowerCase())
               )
-              .map((obj: any) => <PizzaBlock key={obj.id} {...obj} />)}
+              .map((obj: pizzaItem) => <PizzaBlock key={obj.id} {...obj} />)}
       </div>
     </div>
   );

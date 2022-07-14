@@ -1,7 +1,7 @@
 import React from 'react';
 
 type categoriesPrors = {
-  onClickCategory: any;
+  onClickCategory: (index: number) => void;
   value: number;
 };
 

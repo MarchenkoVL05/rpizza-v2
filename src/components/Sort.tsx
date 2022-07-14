@@ -33,8 +33,11 @@ const Sort: React.FC<sortPrors> = ({ optionActive }) => {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.path.includes(sortNode.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const _event = event as MouseEvent & {
+        path: Node[];
+      };
+      if (sortNode.current && !_event.path.includes(sortNode.current)) {
         setOpen(false);
       }
     };

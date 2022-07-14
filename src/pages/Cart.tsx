@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import CartItem from '../components/CartItem';
 import { clearItems } from '../redux/slices/cartSlice';
 import CartEmpty from '../components/CartEmpty';
+import { itemType } from '../components/Header';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
 
   const { items, totalPrice } = useSelector((state: any) => state.cart);
   const totalCount = items.reduce(
-    (sum: number, item: any) => sum + item.count,
+    (sum: number, item: itemType) => sum + item.count,
     0
   );
 

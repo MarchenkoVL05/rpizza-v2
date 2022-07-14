@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setSearchValue } from '../../redux/slices/categorySlice';
@@ -24,7 +24,9 @@ const Search = () => {
       <img className={styles.icon} src={searchIcon} alt='searching' />
       <input
         value={searchValue}
-        onChange={(event) => dispatch(setSearchValue(event.target.value))}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          dispatch(setSearchValue(event.target.value))
+        }
         ref={inputRef}
         className={styles.input}
         placeholder='Поиск пицц...'

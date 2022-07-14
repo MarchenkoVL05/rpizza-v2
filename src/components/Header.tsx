@@ -7,11 +7,21 @@ import { useSelector } from 'react-redux';
 
 import pizzasLogo from '../assets/images/pizza-logo.svg';
 
+export type itemType = {
+  count: number;
+  id: number;
+  imageUrl: string;
+  price: number;
+  size: number;
+  title: string;
+  type: string;
+};
+
 const Header: React.FC = () => {
   const { items, totalPrice } = useSelector((state: any) => state.cart);
 
   const totalCount = items.reduce(
-    (sum: number, item: any) => sum + item.count,
+    (sum: number, item: itemType) => sum + item.count,
     0
   );
 
