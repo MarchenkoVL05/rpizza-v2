@@ -6,19 +6,20 @@ import Search from './Search';
 import { useSelector } from 'react-redux';
 
 import pizzasLogo from '../assets/images/pizza-logo.svg';
+import { RootState } from '../redux/store';
 
 export type itemType = {
   count: number;
   id: number;
   imageUrl: string;
   price: number;
-  size: number;
+  size: string;
   title: string;
   type: string;
 };
 
 const Header: React.FC = () => {
-  const { items, totalPrice } = useSelector((state: any) => state.cart);
+  const { items, totalPrice } = useSelector((state: RootState) => state.cart);
 
   const totalCount = items.reduce(
     (sum: number, item: itemType) => sum + item.count,

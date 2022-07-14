@@ -7,12 +7,15 @@ import styles from './search.module.scss';
 
 import searchIcon from '../../assets/icons/searchIcon.svg';
 import closeIcon from '../../assets/icons/closing.svg';
+import { RootState } from '../../redux/store';
 
 const Search = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
 
-  const searchValue = useSelector((state: any) => state.category.searchValue);
+  const searchValue = useSelector(
+    (state: RootState) => state.category.searchValue
+  );
 
   const clearSearchInput = () => {
     dispatch(setSearchValue(''));

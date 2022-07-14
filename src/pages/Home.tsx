@@ -12,13 +12,18 @@ import { setCategoryIndex, setParams } from '../redux/slices/categorySlice';
 import { fetchPizzas } from '../redux/slices/pizzaSlice';
 
 import { list } from '../components/Sort';
+import { RootState } from '../redux/store';
 
 const Home: React.FC = () => {
-  const categoryIndex = useSelector((state: any) => state.category.categoryId);
-  const optionActive = useSelector((state: any) => state.category.sort);
-  const pizzas = useSelector((state: any) => state.pizzas.items);
-  const status = useSelector((state: any) => state.pizzas.status);
-  const searchValue = useSelector((state: any) => state.category.searchValue);
+  const categoryIndex = useSelector(
+    (state: RootState) => state.category.categoryId
+  );
+  const optionActive = useSelector((state: RootState) => state.category.sort);
+  const pizzas = useSelector((state: RootState) => state.pizzas.items);
+  const status = useSelector((state: RootState) => state.pizzas.status);
+  const searchValue = useSelector(
+    (state: RootState) => state.category.searchValue
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isParams = React.useRef(false);
@@ -66,17 +71,6 @@ const Home: React.FC = () => {
     isMounted.current = true;
   }, [optionActive, categoryIndex]);
 
-  type pizzaItem = {
-    id: number;
-    title: string;
-    price: number;
-    imageUrl: string;
-    types: number[];
-    sizes: number[];
-    category: number;
-    rating: number;
-  };
-
   return (
     <div>
       <div className='content__top'>
@@ -91,10 +85,10 @@ const Home: React.FC = () => {
         {status === 'loading'
           ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
           : pizzas
-              .filter((obj: pizzaItem) =>
+              .filter((obj) =>
                 obj.title.toLowerCase().includes(searchValue.toLowerCase())
               )
-              .map((obj: pizzaItem) => <PizzaBlock key={obj.id} {...obj} />)}
+              .map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
       </div>
     </div>
   );

@@ -2,11 +2,11 @@ import React from 'react';
 import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice';
 import { useDispatch } from 'react-redux';
 
-type cartItemProps = {
+export type cartItemProps = {
   id: number;
   title: string;
-  type: number[];
-  size: number[];
+  type: string;
+  size: string;
   price: number;
   count: number;
   imageUrl: string;

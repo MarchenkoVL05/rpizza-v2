@@ -1,6 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { cartItemProps } from '../../components/CartItem';
 
-const initialState = {
+export type CartItem = {
+  id: number;
+  title: string;
+  price: number;
+  imageUrl: string;
+  type: string;
+  size: string;
+  count: number;
+};
+
+export interface CartSliceState {
+  totalPrice: number;
+  items: CartItem[];
+}
+
+const initialState: CartSliceState = {
   totalPrice: 0,
   items: [],
 };
