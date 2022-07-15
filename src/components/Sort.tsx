@@ -1,4 +1,5 @@
 import React from 'react';
+import { useWhyDidYouUpdate } from 'ahooks';
 import { useDispatch } from 'react-redux';
 
 import { setOptionActive } from '../redux/slices/categorySlice';
@@ -21,7 +22,8 @@ export const list: listType[] = [
   { name: 'Алфавиту', sortProperty: 'title' },
 ];
 
-const Sort: React.FC<sortPrors> = ({ optionActive }) => {
+const Sort: React.FC<sortPrors> = React.memo(({ optionActive }) => {
+  useWhyDidYouUpdate('Sort', { optionActive });
   const [open, setOpen] = React.useState<boolean>(false);
   const sortNode = React.useRef<HTMLDivElement>(null);
 
@@ -85,6 +87,6 @@ const Sort: React.FC<sortPrors> = ({ optionActive }) => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;

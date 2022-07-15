@@ -29,9 +29,9 @@ const Home: React.FC = () => {
   const isParams = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const onClickCategory = (id: number) => {
+  const onClickCategory = React.useCallback((id: number) => {
     dispatch(setCategoryIndex(id));
-  };
+  }, []);
 
   const getPizzas = async () => {
     // @ts-ignore
