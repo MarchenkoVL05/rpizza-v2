@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import Cart from '../pages/Cart';
 import Search from './Search';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem } from '../redux/slices/cartSlice';
 
 import pizzasLogo from '../assets/images/pizza-logo.svg';
 import { RootState } from '../redux/store';
@@ -20,6 +20,7 @@ export type itemType = {
 
 const Header: React.FC = () => {
   const { items, totalPrice } = useSelector((state: RootState) => state.cart);
+  const isMounted = React.useRef(false);
 
   const totalCount = items.reduce(
     (sum: number, item: itemType) => sum + item.count,
@@ -27,6 +28,15 @@ const Header: React.FC = () => {
   );
 
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      let json = JSON.stringify(items);
+      localStorage.setItem('cart', json);
+    }
+    isMounted.current = true;
+  }, [items]);
 
   return (
     <div className='header'>

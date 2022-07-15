@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { cartItemProps } from '../../components/CartItem';
+import { getCartFromLS as getLS } from '../utils/getCartFromLS';
 
 export type CartItem = {
   id: number;
@@ -16,10 +16,7 @@ export interface CartSliceState {
   items: CartItem[];
 }
 
-const initialState: CartSliceState = {
-  totalPrice: 0,
-  items: [],
-};
+const initialState: CartSliceState = getLS();
 
 export const cartSlice = createSlice({
   name: 'cart',
@@ -62,3 +59,6 @@ export const cartSlice = createSlice({
 export const { addItem, removeItem, clearItems, minusItem } = cartSlice.actions;
 
 export default cartSlice.reducer;
+function getCartFromLS(): CartSliceState {
+  throw new Error('Function not implemented.');
+}
