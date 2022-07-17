@@ -1,14 +1,27 @@
 .root {
-    padding: 100px;
-    max-width: 750px;
-    margin: 0 auto;
-    text-align: center;
-  
-    span {
-      font-size: 64px;
+  padding: 100px;
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center;
+
+  span {
+    font-size: 64px;
+  }
+
+  h1 {
+    @media (max-width: 560px) {
+      font-size: 30px;
     }
   }
-  
-  .description {
-    font-size: 22px;
+  @media (max-width: 590px) {
+    padding: 0;
   }
+}
+
+.description {
+  font-size: 22px;
+
+  @media (max-width: 422px) {
+    font-size: 18px;
+  }
+}

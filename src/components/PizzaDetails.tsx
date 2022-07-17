@@ -14,10 +14,10 @@ const PizzaDetails: React.FC = () => {
           src={jdun}
           alt='page is under development'
         />
+        <h1 className='pizza-details__header'>
+          Страница находится в разработке...
+        </h1>
       </div>
-      <h1 className='pizza-details__header'>
-        Страница находится в разработке...
-      </h1>
     </>
   );
 };
