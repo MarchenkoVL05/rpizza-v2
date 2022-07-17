@@ -13,6 +13,10 @@
 
   &__image {
     width: 260px;
+
+    @media (max-width: 422px) {
+      width: 140px;
+    }
   }
 
   &__title {
@@ -50,6 +54,9 @@
           border-radius: 5px;
           cursor: auto;
         }
+        @media (max-width: 422px) {
+          font-size: 11px;
+        }
       }
     }
   }
@@ -66,5 +73,11 @@
     font-size: 22px;
     line-height: 27px;
     letter-spacing: 0.015em;
+    @media (max-width: 422px) {
+      font-size: 15px;
+    }
+  }
+  @media (max-width: 422px) {
+    width: 175px;
   }
 }

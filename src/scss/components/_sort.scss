@@ -8,16 +8,30 @@
 
     svg {
       margin-right: 8px;
+      @media (max-width: 422px) {
+        display: none;
+      }
     }
 
     b {
       margin-right: 8px;
+
+      @media (max-width: 468px) {
+        font-size: 15px;
+      }
     }
 
     span {
       color: $orange;
       border-bottom: 1px dashed $orange;
       cursor: pointer;
+
+      @media (max-width: 468px) {
+        font-size: 15px;
+      }
+    }
+    @media (max-width: 422px) {
+      flex-direction: column;
     }
   }
 
@@ -47,7 +61,13 @@
           font-weight: bold;
           color: $orange;
         }
+        @media (max-width: 422px) {
+          font-size: 16px;
+        }
       }
+    }
+    @media (max-width: 422px) {
+      width: 155px;
     }
   }
   @media (max-width: 1470px) {

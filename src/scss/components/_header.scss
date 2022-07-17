@@ -8,6 +8,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 920px) {
+      flex-direction: column;
+    }
   }
 
   &__logo {
@@ -15,6 +19,10 @@
 
     img {
       margin-right: 15px;
+      @media (max-width: 422px) {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
     }
 
     h1 {
@@ -23,10 +31,29 @@
       letter-spacing: 1%;
       text-transform: uppercase;
       font-weight: 800;
+
+      @media (max-width: 422px) {
+        font-size: 20px;
+        text-align: center;
+      }
     }
 
     p {
       color: #7b7b7b;
+
+      @media (max-width: 1320px) {
+        width: 230px;
+        font-size: 16px;
+      }
+      @media (max-width: 422px) {
+        font-size: 14px;
+        width: 180px;
+        text-align: center;
+      }
+    }
+    @media (max-width: 422px) {
+      flex-direction: column;
+      align-items: center;
     }
   }
 }

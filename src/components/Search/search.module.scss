@@ -2,6 +2,10 @@
   position: relative;
   right: 120px;
   top: 5px;
+
+  @media (max-width: 1100px) {
+    right: 0;
+  }
 }
 
 input {
@@ -14,6 +18,14 @@ input {
   &:focus {
     border: 1px solid rgba(0, 0, 0, 0.3);
   }
+
+  @media (max-width: 920px) {
+    width: 220px;
+    margin: 50px;
+  }
+  @media (max-width: 422px) {
+    width: 180px;
+  }
 }
 
 .icon {
@@ -24,6 +36,11 @@ input {
   left: 11px;
   opacity: 50%;
   cursor: pointer;
+
+  @media (max-width: 920px) {
+    top: 60px;
+    left: 60px;
+  }
 }
 
 .close {
@@ -34,4 +51,11 @@ input {
   right: 11px;
   opacity: 50%;
   cursor: pointer;
+  @media (max-width: 920px) {
+    top: 60px;
+    left: 240px;
+  }
+  @media (max-width: 422px) {
+    left: 200px;
+  }
 }
